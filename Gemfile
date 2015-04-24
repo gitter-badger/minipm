@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 # Default gems
-gem 'rails',    '4.2.1'
-gem 'sqlite3',  '1.3.10'
+gem 'rails',        '4.2.1'
+gem 'high_voltage', '2.3.0'
+gem 'sqlite3',      '1.3.10'
 
 # Assets
 gem 'sass-rails',   '5.0.2'
