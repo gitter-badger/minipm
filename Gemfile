@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 # Default gems
 gem 'rails',        '4.2.1'
 gem 'high_voltage', '2.3.0'
-gem 'sqlite3',      '1.3.10'
 
 # Assets
 gem 'sass-rails',   '5.0.2'
@@ -18,4 +17,11 @@ group :development, :test do
   gem 'web-console',  '2.1.2'
   gem 'spring',       '1.3.4'
   gem 'quiet_assets', '1.1.0'
+  gem 'sqlite3',      '1.3.10'
+end
+
+# Production gems
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
 end
