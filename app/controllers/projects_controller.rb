@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
+    @unfinished_tasks = @project.tasks.where(finished: false)
+    @finished_tasks = @project.tasks.where(finished: true)
   end
 
   # GET /projects/new
