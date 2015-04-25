@@ -16,15 +16,9 @@
         <td><%= project.due_date %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', '#', 'data-toggle' => 'modal', 'data-target' => '#myModal' %></td>
+        <td><%= link_to 'Destroy', '#', 'data-toggle' => 'modal', 'data-target' => '#deleteModal' %></td>
       </tr>
-      <div class='modal fade' id='myModal' role='dialog' aria-hidden='true'>
-        <div class='modal-dialog modal-sm'>
-          <div class='modal-content'>
-            <%= link_to 'Confirm Delete', project, method: :delete, class: 'btn' %>
-          </div>
-        </div>
-      </div>
+      <%= render 'shared/delete_modal', object: project_path(project) %>
     <% end %>
   </tbody>
 </table>
