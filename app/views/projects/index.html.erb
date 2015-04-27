@@ -23,4 +23,5 @@
   </tbody>
 </table>
 <br>
-<%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
+<%= link_to 'New Project', new_project_path, class: 'btn btn-primary', id: 'new-project', remote: true %>
+<div id='project-form' style='display:none;'></div>
