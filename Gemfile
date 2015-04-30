@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Default gems
 gem 'rails',        '4.2.1'
 gem 'high_voltage', '2.3.0'
+gem 'mini_magick',  '4.2.3'
+gem 'refile',       '0.5.4', require: ['refile/rails', 'refile/image_processing']
 
 # Assets
 gem 'sass-rails',   '5.0.2'

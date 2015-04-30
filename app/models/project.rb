@@ -2,6 +2,9 @@ class Project < ActiveRecord::Base
   # Associations
   has_many :tasks
 
+  # Attachment
+  attachment :project_image
+
   # Validations
   validates :title, presence: true
   validates :due_date, presence: true
