@@ -11,13 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427081103) do
+ActiveRecord::Schema.define(version: 20150509024324) do
 
-  create_table "notes", force: :cascade do |t|
-    t.string   "content"
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "task_id"
+    t.integer  "assignee_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "assignments", ["assignee_id"], name: "index_assignments_on_assignee_id"
+  add_index "assignments", ["task_id"], name: "index_assignments_on_task_id"
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "memberships", ["member_id"], name: "index_memberships_on_member_id"
+  add_index "memberships", ["project_id"], name: "index_memberships_on_project_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -26,7 +40,10 @@ ActiveRecord::Schema.define(version: 20150427081103) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "project_image_id"
+    t.integer  "owner_id"
   end
+
+  add_index "projects", ["owner_id"], name: "index_projects_on_owner_id"
 
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
@@ -35,8 +52,31 @@ ActiveRecord::Schema.define(version: 20150427081103) do
     t.integer  "project_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "owner_id"
   end
 
+  add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id"
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "login",                           null: false
+    t.string   "email",                           null: false
+    t.string   "crypted_password",                null: false
+    t.string   "password_salt",                   null: false
+    t.string   "persistence_token",               null: false
+    t.string   "single_access_token",             null: false
+    t.string   "perishable_token",                null: false
+    t.integer  "login_count",         default: 0, null: false
+    t.integer  "failed_login_count",  default: 0, null: false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email"
 
 end

@@ -1,0 +1,9 @@
+%header
+  %nav.navbar.navbar-default
+    .container
+      .navbar-header
+        = link_to 'Project Manager', root_path, class: 'navbar-brand'
+      .navbar-collapse.collapse
+        %ul.nav.navbar-nav.navbar-right
+          - if current_user
+            %li= link_to 'Logout', logout_path, method: :delete

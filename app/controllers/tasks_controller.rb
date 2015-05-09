@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
+  before_action :require_login
   before_action :set_project
-  before_action :set_task, only: [:show, :edit, :finish]
+  before_action :set_task, only: [:show, :edit, :finish, :cancel]
 
   # GET /projects/1/task/new
   def new
-    @task = @project.tasks.new
+    @task = current_user.tasks.new(project: @project)
   end
 
   # GET /projects/1/tasks/1
@@ -17,9 +18,12 @@ class TasksController < ApplicationController
 
   # POST /projects/1/tasks
   def create
-    @task = @project.tasks.build(task_params)
+    @task = current_user.tasks.build(task_params)
+    @task.project = @project
+
     if @task.save
-      redirect_to @project, notice: 'Task was successfully created.'
+      @task.assignees.each { |a| TaskMailer.send_task(a, @task).deliver_later }
+      redirect_to @project, info: 'Task was successfully created.'
     else
       render :new
     end
@@ -28,6 +32,12 @@ class TasksController < ApplicationController
   # PUT /projects/1/tasks/1/finish
   def finish
     @task.update_attributes(finished: true)
+    redirect_to @project
+  end
+
+  # PUT /projects/1/tasks/1/cancel
+  def cancel
+    @task.update_attributes(finished: false)
     redirect_to @project
   end
 
@@ -45,6 +55,6 @@ class TasksController < ApplicationController
 
   # Strong parameters, only allow permitted paramaters
   def task_params
-    params.require(:task).permit(:title, :description, :finished)
+    params.require(:task).permit(:title, :description, :finished, assignee_ids: [],)
   end
 end

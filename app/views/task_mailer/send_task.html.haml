@@ -1,0 +1,9 @@
+%h1 Hello, #{@assignee.login}
+%p
+  You have been assigned to a new task, yeay!
+  Your new task is
+  %strong #{@task.title}
+
+%p Check this link below:
+
+= link_to 'Task', project_url(@task.project)

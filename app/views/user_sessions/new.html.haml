@@ -1,0 +1,23 @@
+- provide(:title, 'Login')
+
+.row
+  .col-md-4.col-md-offset-4
+    .page-header
+      %h1 Please Login
+
+    = form_for @user_session, url: login_path do |f|
+      =# render 'shared/error_messages', object: f.object
+
+      .form-group
+        = f.text_field :login, class: 'form-control', placeholder: 'Login'
+
+      .form-group
+        = f.password_field :password, class: 'form-control', placeholder: 'Password'
+
+      .checkbox
+        = f.label :remember_me do
+          = f.check_box :remember_me
+          Remember me
+
+      .actions
+        = f.submit 'Submit', class: 'btn btn-default btn-block'

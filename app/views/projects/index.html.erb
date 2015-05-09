@@ -1,27 +1,29 @@
-<h1>Listing Projects</h1>
-<table class='table'>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Due date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
+<div class='page-header'>
+  <h1>Project Manager</h1>
+</div>
+<div class='panel panel-default'>
+  <div class='panel-heading'>Projects</div>
+  <table class='table'>
+    <thead>
       <tr>
-        <td><%= project.title %></td>
-        <td><%= project.description %></td>
-        <td><%= project.due_date %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', '#', 'data-toggle' => 'modal', 'data-target' => '#deleteModal' %></td>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due date</th>
+        <th colspan="3"></th>
       </tr>
-      <%= render 'shared/delete_modal', object: project_path(project) %>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= link_to 'New Project', new_project_path, class: 'btn btn-primary', id: 'new-project', remote: true %>
-<div id='project-form' style='display:none;'></div>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.title %></td>
+          <td><%= project.description %></td>
+          <td><%= project.format_date %></td>
+          <td><%= link_to 'Show', project %></td>
+          <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'New Project', new_project_path, class: 'btn btn-default' %>

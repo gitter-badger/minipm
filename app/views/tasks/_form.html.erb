@@ -4,11 +4,24 @@
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
   </div>
+
   <div class='form-group'>
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control' %>
   </div>
+
   <div class='form-group'>
-    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <%= f.label :assignee_ids, 'Assignee' %>
+    <%= f.collection_select :assignee_ids, @project.members, :id, :login, {}, { multiple:true, class: 'form-control' }%>
+  </div>
+
+  <div class='form-group'>
+    <%= f.submit 'Submit', class: 'btn btn-default' %>
   </div>
 <% end %>
+
+<script type='text/javascript' charset='utf-8'>
+$('#task_assignee_ids').chosen({
+    disable_search_threshold: 10
+});
+</script>

@@ -1,9 +1,14 @@
 class Project < ActiveRecord::Base
   # Associations
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
+  has_many :memberships
+  has_many :members, class_name: 'User', through: 'memberships',
+    foreign_key: 'member_id'
+
+  belongs_to :owner, class_name: 'User'
 
   # Attachment
-  attachment :project_image
+  # attachment :project_image
 
   # Validations
   validates :title, presence: true
@@ -11,7 +16,15 @@ class Project < ActiveRecord::Base
 
   # Format date
   def format_date
-    self.due_date.strftime('%B %e, %Y')
+    self.due_date.strftime('%e %B %Y')
+  end
+
+  def unfinished_tasks
+    self.tasks.where(finished: false)
+  end
+
+  def finished_tasks
+    self.tasks.where(finished: true)
   end
 
   # Model name in url
