@@ -1,0 +1,6 @@
+%tr
+  %td= finished_task.title
+  %td= finished_task.description
+  %td= finished_task.updated_at.strftime('%e %B %Y')
+  %td= link_to 'Cancel', cancel_project_task_path(@project, finished_task),
+    method: :put

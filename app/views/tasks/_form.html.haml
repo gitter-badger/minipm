@@ -1,0 +1,17 @@
+= form_for [@project, @task] do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control'
+
+  .form-group
+    = f.label :assignee_ids, 'Assignee'
+    = f.collection_select :assignee_ids, @project.members, :id, :login,
+      {}, { multiple: true, class: 'form-control' }
+
+  .form-group
+    = f.submit 'Submit', class: 'btn btn-default'

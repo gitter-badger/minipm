@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   # Authlogic
   acts_as_authentic do |c|
+    # Crypto provider (BCrypt, SCrypt, MD5, etc)
     c.crypto_provider = Authlogic::CryptoProviders::SCrypt
   end
 
@@ -22,5 +23,5 @@ class User < ActiveRecord::Base
   end
 
   # Validations
-  # TODO: Create basic user validations
+  # NOTE: Email, login, and password are handles by Authlogic::Regex
 end

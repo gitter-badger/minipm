@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :require_login
+before_action :set_project, only: [:show, :edit, :update, :destroy]
+before_action :require_login
 
   # GET /projects
   def index
@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = current_user.projects.new(project_params)
+    byebug
     if params[:cancel]
       redirect_to projects_path
     elsif @project.save

@@ -1,0 +1,44 @@
+- provide(:title, @project.title)
+
+.page-header
+  %h1
+    =@project.title
+    %br
+    %span
+      %small= @project.description
+
+%code Due on #{@project.format_date}
+
+%h2 Tasks
+.panel.panel-info
+  .panel-heading Unfinished Tasks
+
+  - if @project.unfinished_tasks.any?
+    %table.table
+      %thead
+        %tr
+          %th.col-md-4 Title
+          %th.col-md-4 Description
+          %th.col-md-2 Created At
+          %th.col-md-2 Status
+      %tbody
+        = render partial: 'unfinished_task', collection: @project.unfinished_tasks
+
+.panel.panel-success
+  .panel-heading Finished Tasks
+
+  - if @project.finished_tasks.any?
+    %table.table
+      %thead
+        %tr
+          %th.col-md-4 Title
+          %th.col-md-4 Description
+          %th.col-md-2 Finished At
+          %th.col-md-2 Cancel
+      %tbody
+        = render partial: 'finished_task', collection: @project.finished_tasks
+
+.btn-group
+  = link_to 'Back', projects_path, class: 'btn btn-default'
+  = link_to 'Edit Project', edit_project_path, class: 'btn btn-default'
+  = link_to 'New Task', new_project_task_path(@project), class: 'btn btn-default'

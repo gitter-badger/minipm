@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     @task.project = @project
 
     if @task.save
-      @task.assignees.each { |a| TaskMailer.send_task(a, @task).deliver_later }
+      @task.assignees.each { |a| TaskMailer.send_task(a, @task).deliver_later(wait: 1.minute) }
       redirect_to @project, info: 'Task was successfully created.'
     else
       render :new
@@ -55,6 +55,6 @@ class TasksController < ApplicationController
 
   # Strong parameters, only allow permitted paramaters
   def task_params
-    params.require(:task).permit(:title, :description, :finished, assignee_ids: [],)
+    params.require(:task).permit(:title, :description, :finished, assignee_ids: [])
   end
 end

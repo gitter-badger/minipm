@@ -1,0 +1,25 @@
+.panel.panel-default
+  .panel-body
+    = form_for @project do |f|
+      = render 'shared/error_messages', object: f.object
+
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control'
+
+      .form-group
+        = f.label :due_date
+        = f.text_field :due_date, class: 'form-control'
+
+      .form-group
+        = f.label :member_ids, 'Members'
+        = f.collection_select :member_ids, User.where.not(id: @project.owner_id),
+          :id, :login, {}, { multiple: true, class: 'form-control' }
+
+      .btn-group
+        = f.submit 'Submit', class: 'btn btn-default'
+        = f.submit 'Cancel', class: 'btn btn-default', name: 'cancel'

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   end
 
   # Users and sessions
-  resources :users
+  # resources :users
+  resources :password_resets, only: [:new, :create, :edit, :update]
   # resources :user_sessions
 
   # User session

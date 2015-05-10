@@ -6,7 +6,6 @@
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     %title= title(yield :title)
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application'
     = render 'layouts/shiv'
     = csrf_meta_tags
   %body
@@ -15,6 +14,7 @@
       = render 'layouts/flash'
       = yield
       = render 'layouts/footer'
+    = javascript_include_tag 'application'
 
     - if Rails.env.development?
       .container= debug(params)

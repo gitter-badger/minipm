@@ -1,0 +1,6 @@
+%tr
+  %td= unfinished_task.title
+  %td= unfinished_task.description
+  %td= unfinished_task.created_at.strftime('%e %B %Y')
+  %td= link_to 'Finish', finish_project_task_path(@project, unfinished_task),
+    method: :put

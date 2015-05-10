@@ -1,0 +1,15 @@
+.page-header
+  %h1 Project Manager
+
+.panel.panel-default
+  .panel-heading Projects
+
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Description
+        %th Due Date
+
+    %tbody
+      = render @projects

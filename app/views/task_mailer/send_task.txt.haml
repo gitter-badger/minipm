@@ -1,4 +1,7 @@
-Hello, #{@user.login}
-You have been assigned to a new task, yeay! Check this link below:
+Hello, #{@assignee.login}
 
-= project_url(@task.project)
+You have been assigned to a new task, yeay! Your new task is #{@task.title}
+
+Check this link below:
+
+project_url(@task.project)

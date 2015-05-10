@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Helper methods
-  helper_method :current_user, :current_session
+  helper_method :current_user, :current_user_session
   helper :all
 
   # Custom flash
@@ -13,13 +13,13 @@ class ApplicationController < ActionController::Base
   private
 
   # Current session
-  def current_session
-    @current_session ||= UserSession.find
+  def current_user_session
+    @current_user_session ||= UserSession.find
   end
 
   # Current user
   def current_user
-    @current_user ||= current_session && current_session.record
+    @current_user ||= current_user_session && current_user_session.record
   end
 
   def require_login
