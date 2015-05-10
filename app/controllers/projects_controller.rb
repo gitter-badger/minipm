@@ -5,6 +5,11 @@ before_action :require_login
   # GET /projects
   def index
     @projects = Project.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @projects }
+    end
   end
 
   # GET /projects/1

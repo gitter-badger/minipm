@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     @task.project = @project
 
     if @task.save
-      @task.assignees.each { |a| TaskMailer.send_task(a, @task).deliver_later(wait: 1.minute) }
+      @task.assignees.each { |a| TaskMailer.send_task(a, @task).deliver_later(queue: 'low') }
       redirect_to @project, info: 'Task was successfully created.'
     else
       render :new

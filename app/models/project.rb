@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   # Associations
   has_many :tasks, dependent: :destroy
-  has_many :memberships
+  has_many :memberships, dependent: :destroy, foreign_key: :project_id
   has_many :members, class_name: 'User', through: 'memberships',
     foreign_key: 'member_id'
 
