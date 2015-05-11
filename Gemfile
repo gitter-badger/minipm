@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Ruby version
+ruby '2.2.1'
+
 # Default gems
 gem 'rails',        '4.2.1'
 gem 'mini_magick',  '4.2.3'
