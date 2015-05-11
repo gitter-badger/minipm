@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150509024324) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "assignments", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "assignee_id"
@@ -20,8 +23,8 @@ ActiveRecord::Schema.define(version: 20150509024324) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "assignments", ["assignee_id"], name: "index_assignments_on_assignee_id"
-  add_index "assignments", ["task_id"], name: "index_assignments_on_task_id"
+  add_index "assignments", ["assignee_id"], name: "index_assignments_on_assignee_id", using: :btree
+  add_index "assignments", ["task_id"], name: "index_assignments_on_task_id", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "project_id"
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 20150509024324) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "memberships", ["member_id"], name: "index_memberships_on_member_id"
-  add_index "memberships", ["project_id"], name: "index_memberships_on_project_id"
+  add_index "memberships", ["member_id"], name: "index_memberships_on_member_id", using: :btree
+  add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -43,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150509024324) do
     t.integer  "owner_id"
   end
 
-  add_index "projects", ["owner_id"], name: "index_projects_on_owner_id"
+  add_index "projects", ["owner_id"], name: "index_projects_on_owner_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
@@ -55,8 +58,8 @@ ActiveRecord::Schema.define(version: 20150509024324) do
     t.integer  "owner_id"
   end
 
-  add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id"
-  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
+  add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id", using: :btree
+  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                           null: false
@@ -77,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150509024324) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
+  add_foreign_key "tasks", "projects"
 end

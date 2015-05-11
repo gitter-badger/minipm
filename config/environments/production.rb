@@ -55,7 +55,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = 'd1376gg7ztpybo.cloudfront.net'
@@ -63,6 +63,18 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options   = { host: 'beta.pm.rakarsa.com' }
+
+  # Mandrill
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings   = {
+    address:   'smtp.mandrillapp.com',
+    port:      587,
+    user_name: ENV['MANDRILL_USERNAME'],
+    password:  ENV['MANDRILL_APIKEY'],
+    domain:    'heroku.com',
+    authentication: :plain
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

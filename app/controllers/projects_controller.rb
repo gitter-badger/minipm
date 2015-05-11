@@ -28,7 +28,6 @@ before_action :require_login
   # POST /projects
   def create
     @project = current_user.projects.new(project_params)
-    byebug
     if params[:cancel]
       redirect_to projects_path
     elsif @project.save

@@ -9,6 +9,7 @@ gem 'mini_magick',  '4.2.3'
 gem 'refile',       '0.5.4', require: ['refile/rails', 'refile/image_processing']
 gem 'authlogic',    '3.4.5'
 gem 'sucker_punch', '1.4.0'
+gem 'pg'
 
 # APIs
 gem 'active_model_serializers'
@@ -27,7 +28,6 @@ group :development, :test do
   gem 'web-console',        '2.1.2'
   gem 'spring',             '1.3.5'
   gem 'quiet_assets',       '1.1.0'
-  gem 'sqlite3',            '1.3.10'
   gem 'faker',              '1.4.3'
   gem 'rspec-rails',        '3.2.1'
   gem 'factory_girl_rails', '4.5.0'
@@ -36,7 +36,6 @@ end
 
 # Production gems
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
   gem 'puma'
 end
