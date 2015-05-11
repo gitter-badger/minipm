@@ -5,7 +5,7 @@ gem 'rails',        '4.2.1'
 gem 'mini_magick',  '4.2.3'
 gem 'refile',       '0.5.4', require: ['refile/rails', 'refile/image_processing']
 gem 'authlogic',    '3.4.5'
-gem 'sucker_punch'  '1.4.0'
+gem 'sucker_punch', '1.4.0'
 
 # APIs
 gem 'active_model_serializers'
