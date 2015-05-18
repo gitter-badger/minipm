@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
-before_action :set_project, only: [:show, :edit, :update, :destroy]
-before_action :require_login
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
+  before_action :is_project_owner?, only: [:edit, :update, :destroy]
 
   # GET /projects
   def index
@@ -31,6 +32,7 @@ before_action :require_login
     if params[:cancel]
       redirect_to projects_path
     elsif @project.save
+      @project.members << current_user
       redirect_to @project, info: 'Project was successfully created.'
     else
       render :new
@@ -68,5 +70,9 @@ before_action :require_login
     # Only allow a trusted parameter "white list" through.
     def project_params
       params.require(:project).permit(:title, :description, :due_date, member_ids: [])
+    end
+
+    def is_project_owner?
+      redirect_to @project unless @project.owner_id == current_user.id
     end
 end

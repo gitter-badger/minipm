@@ -3,4 +3,7 @@
   %td= project.description
   %td= project.format_date
   %td= link_to 'Show', project
-  %td= link_to 'Edit', edit_project_path(project)
+  - if is_the_owner?(project)
+    %td= link_to 'Edit', edit_project_path(project)
+  - else
+    %td= link_to 'Edit', edit_project_path(project), class: 'disabled'

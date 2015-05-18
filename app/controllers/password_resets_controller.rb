@@ -12,7 +12,7 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     if @user
-      UserMailer.password_reset(@user).deliver_later
+      UserMailer.password_reset(@user).deliver_later(queue: 'high')
       redirect_to login_path, info: 'Password reset instruction has been sent'
     else
       flash.now[:warning] = 'Email not found!'

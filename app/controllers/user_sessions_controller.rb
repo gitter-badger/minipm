@@ -22,7 +22,7 @@ class UserSessionsController < ApplicationController
 
   # DELETE /sessions
   def destroy
-    current_session.destroy
+    current_user_session.destroy
     redirect_to root_path, info: 'Logged out!'
   end
 end

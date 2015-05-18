@@ -7,6 +7,8 @@
     %span
       %small= @project.description
 
+%p Project Manager: #{@project.owner.login}
+
 %code Due on #{@project.format_date}
 
 %h2 Tasks
@@ -20,7 +22,7 @@
           %th.col-md-4 Title
           %th.col-md-4 Description
           %th.col-md-2 Created At
-          %th.col-md-2 Status
+          %th.col-md-2 Action
       %tbody
         = render partial: 'unfinished_task', collection: @project.unfinished_tasks
 
@@ -34,11 +36,17 @@
           %th.col-md-4 Title
           %th.col-md-4 Description
           %th.col-md-2 Finished At
-          %th.col-md-2 Cancel
+          %th.col-md-2 Action
       %tbody
         = render partial: 'finished_task', collection: @project.finished_tasks
 
-.btn-group
-  = link_to 'Back', projects_path, class: 'btn btn-default'
-  = link_to 'Edit Project', edit_project_path, class: 'btn btn-default'
-  = link_to 'New Task', new_project_task_path(@project), class: 'btn btn-default'
+%h2 Members
+%ul
+  - @project.members.each do |member|
+    %li= member.login
+
+- if is_the_owner?(@project)
+  .btn-group
+    = link_to 'Back', projects_path, class: 'btn btn-default'
+    = link_to 'Edit Project', edit_project_path, class: 'btn btn-default'
+    = link_to 'New Task', new_project_task_path(@project), class: 'btn btn-default'

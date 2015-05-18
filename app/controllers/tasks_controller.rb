@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :require_login
   before_action :set_project
   before_action :set_task, only: [:show, :edit, :finish, :cancel]
+  before_action :is_project_owner?, only:[:new, :create, :finish, :cancel]
 
   # GET /projects/1/task/new
   def new
@@ -56,5 +57,9 @@ class TasksController < ApplicationController
   # Strong parameters, only allow permitted paramaters
   def task_params
     params.require(:task).permit(:title, :description, :finished, assignee_ids: [])
+  end
+
+  def is_project_owner?
+    redirect_to @project unless @project.owner_id == current_user.id
   end
 end

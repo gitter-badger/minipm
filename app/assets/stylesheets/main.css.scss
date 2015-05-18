@@ -5,6 +5,12 @@ body {
   font-family: Lato;
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #ddd;
+}
+
 /* Footer */
 footer {
   margin-top: 45px;

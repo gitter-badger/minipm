@@ -8,4 +8,9 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  # Check user if the owner of a project
+  def is_the_owner?(project)
+    project.owner_id == current_user.id
+  end
 end
