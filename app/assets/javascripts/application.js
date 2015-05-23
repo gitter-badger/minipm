@@ -14,9 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require data-confirm-modal
 //= require chosen.jquery
 //= require turbolinks
-//= require react
-//= require react_ujs
 //= require components
 //= require_tree .

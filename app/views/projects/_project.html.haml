@@ -3,7 +3,10 @@
   %td= project.description
   %td= project.format_date
   %td= link_to 'Show', project
-  - if is_the_owner?(project)
-    %td= link_to 'Edit', edit_project_path(project)
+  - if policy(project).update?
+    %td= link_to 'Edit'   , edit_project_path(project)
+    %td= link_to 'Delete',  project_path(project), method: :delete,
+      data: { confirm: 'Are you sure want to delete this project?' }
   - else
-    %td= link_to 'Edit', edit_project_path(project), class: 'disabled'
+    %td= link_to 'Edit',   '#', class: 'disabled'
+    %td= link_to 'Delete', '#', class: 'disabled'

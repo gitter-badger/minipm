@@ -1,4 +1,8 @@
 class Project < ActiveRecord::Base
+  # Callbacks
+  before_validation :generate_slug
+  after_commit      :add_owner_to_members, on: :create
+
   # Associations
   has_many :tasks, dependent: :destroy
   has_many :memberships, dependent: :destroy, foreign_key: :project_id
@@ -11,8 +15,9 @@ class Project < ActiveRecord::Base
   # attachment :project_image
 
   # Validations
-  validates :title, presence: true
+  validates :title,    presence: true
   validates :due_date, presence: true
+  validates :slug,     presence: true, uniqueness: true
 
   # Format date
   def format_date
@@ -29,6 +34,17 @@ class Project < ActiveRecord::Base
 
   # Model name in url
   def to_param
-    "#{id}-#{title}".parameterize
+    slug
+  end
+
+  private
+
+  # Generate project slug for url
+  def generate_slug
+    self.slug ||= title.parameterize
+  end
+
+  def add_owner_to_members
+    self.members << self.owner
   end
 end

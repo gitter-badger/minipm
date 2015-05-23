@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :require_login
-  before_action :is_project_owner?, only: [:edit, :update, :destroy]
 
   # GET /projects
   def index
@@ -24,6 +23,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    authorize @project
   end
 
   # POST /projects
@@ -32,7 +32,6 @@ class ProjectsController < ApplicationController
     if params[:cancel]
       redirect_to projects_path
     elsif @project.save
-      @project.members << current_user
       redirect_to @project, info: 'Project was successfully created.'
     else
       render :new
@@ -45,6 +44,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1
   def update
+    authorize @project
     if params[:cancel]
       redirect_to @project
     elsif @project.update(project_params)
@@ -64,15 +64,13 @@ class ProjectsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.find_by_slug!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, info: 'Project not found.'
     end
 
     # Only allow a trusted parameter "white list" through.
     def project_params
       params.require(:project).permit(:title, :description, :due_date, member_ids: [])
-    end
-
-    def is_project_owner?
-      redirect_to @project unless @project.owner_id == current_user.id
     end
 end

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/ifad/data-confirm-modal.git
+  revision: ba73f2fccd4451ee2f41f2f6995bff8f7ede3459
+  specs:
+    data-confirm-modal (1.0.2)
+      railties (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,8 +51,14 @@ GEM
       activesupport (>= 3.2)
       request_store (~> 1.0)
       scrypt (~> 1.2)
+    autoprefixer-rails (5.1.11)
+      execjs
+      json
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.4.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -59,7 +72,6 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
-    connection_pool (2.2.0)
     dalli (2.7.4)
     debug_inspector (0.0.2)
     erubis (2.7.0)
@@ -108,6 +120,8 @@ GEM
     pg (0.18.1)
     puma (2.11.2)
       rack (>= 1.1, < 2.0)
+    pundit (1.0.0)
+      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
@@ -145,13 +159,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    react-rails (1.0.0)
-      coffee-script-source (~> 1.8)
-      connection_pool
-      execjs
-      rails (>= 3.1)
-      react-source (~> 0.13)
-    react-source (0.13.3)
     refile (0.5.4)
       mime-types
       rest-client (~> 1.7.2)
@@ -210,21 +217,23 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   authlogic (= 3.4.5)
+  bootstrap-sass
   byebug (= 4.0.5)
   coffee-rails (= 4.1.0)
-  dalli
+  dalli (= 2.7.4)
+  data-confirm-modal!
   faker (= 1.4.3)
   haml-rails (= 0.9.0)
   hirb
   jquery-rails (= 4.0.3)
-  memcachier
+  memcachier (= 0.0.2)
   mini_magick (= 4.2.3)
   pg (= 0.18.1)
-  puma
+  puma (= 2.11.2)
+  pundit (= 1.0.0)
   quiet_assets (= 1.1.0)
   rails (= 4.2.1)
   rails_12factor
-  react-rails (= 1.0.0)
   refile (= 0.5.4)
   sass-rails (= 5.0.2)
   spring (= 1.3.6)

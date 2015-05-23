@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'admin' => redirect('admin/dashboards')
+
+  # Admin panel
+  namespace :admin do
+    resources :dashboards, only: :index
+  end
+
   # Users and sessions
   # resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]

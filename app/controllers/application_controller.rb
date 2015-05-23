@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # Pundit
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   # Helper methods
   helper_method :current_user, :current_user_session
   helper :all
@@ -46,4 +50,7 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
+  def user_not_authorized
+    redirect_to(request.referrer || root_path)
+  end
 end

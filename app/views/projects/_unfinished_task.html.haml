@@ -1,9 +1,20 @@
-%tr
+%tr{id: "unfinished-task-#{unfinished_task.id}"}
   %td= unfinished_task.title
   %td= unfinished_task.description
   %td= unfinished_task.created_at.strftime('%e %B %Y')
   - if is_the_owner?(@project)
-    %td= link_to 'Finish', finish_project_task_path(@project, unfinished_task),
-      method: :put
+    %td
+      = link_to finish_project_task_path(@project, unfinished_task),
+        method: :put, remote: true do
+        %span.glyphicon.glyphicon-ok
+      &nbsp;
+      = link_to project_task_path(@project, unfinished_task),
+        method: :delete, data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-remove
+      &nbsp;
+      = link_to edit_project_task_path(@project, unfinished_task),
+        method: :delete, remote: true do
+        %span.glyphicon.glyphicon-edit
   - else
-    %td -
+    %td
+      %span.glyphicon.glyphicon-minus

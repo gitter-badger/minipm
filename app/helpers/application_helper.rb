@@ -11,6 +11,6 @@ module ApplicationHelper
 
   # Check user if the owner of a project
   def is_the_owner?(project)
-    project.owner_id == current_user.id
+   (project.owner_id == current_user.id) || current_user.try(:admin?)
   end
 end

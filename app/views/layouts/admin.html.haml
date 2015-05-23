@@ -1,0 +1,32 @@
+!!!
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}
+    %meta{'http-equiv' => 'X-UA-Compatible', content: 'IE=edge'}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %title= title(yield :title)
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = render 'layouts/shiv'
+    = csrf_meta_tags
+  %body
+    = render 'layouts/header'
+    .container.container-fluid
+      .row
+        = render 'layouts/flash'
+        .col-md-2
+          %ul.nav.nav-sidebar
+            %li= link_to 'Overview', '#'
+            %li= link_to 'Report',   '#'
+            %li= link_to 'Profie',   '#'
+          %ul.nav.nav-sidebar
+            %li= link_to 'Projects', '#'
+            %li= link_to 'Tasks',   '#'
+            %li= link_to 'Users',   '#'
+        .col-md-10
+          = yield
+      = render 'layouts/footer'
+    = javascript_include_tag 'application'
+
+    - if Rails.env.development?
+      .container= debug(params)
+

@@ -9,3 +9,8 @@ $(document).ready(function() {
 $('#project_member_ids').chosen({
   disable_search_threshold: 10
 });
+
+dataConfirmModal.setDefaults({
+  title: 'Delete Record (Carefull)',
+  text: 'Are you sure want to delete this record?'
+});

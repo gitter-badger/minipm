@@ -1,0 +1,7 @@
+$("#unfinished-task-<%= @task.id %>").fadeOut(1000);
+
+$('#finished-tasks').
+  html('<%= j render partial: 'projects/finished_task',
+       collection: @project.finished_tasks %>');
+
+$("#finished-task-<%= @task.id %>").hide().fadeIn(1000);

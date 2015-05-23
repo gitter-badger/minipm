@@ -1,4 +1,7 @@
 class Task < ActiveRecord::Base
+  # Callbacks
+  after_commit :send_email_to_assignees, on: :create
+
   # Associations
   belongs_to :project
   belongs_to :owner, class_name: User
@@ -10,4 +13,12 @@ class Task < ActiveRecord::Base
   # Validations
   validates :title, presence: true
   validates :project_id, presence: true
+
+  private
+
+  def send_email_to_assignees
+    self.assignees.each do |assignee|
+      TaskMailer.send_task(assignee, self).deliver_later(queue: 'low')
+    end
+  end
 end

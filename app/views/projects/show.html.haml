@@ -23,8 +23,17 @@
           %th.col-md-4 Description
           %th.col-md-2 Created At
           %th.col-md-2 Action
-      %tbody
+      %tbody#unfinished-tasks
         = render partial: 'unfinished_task', collection: @project.unfinished_tasks
+  - else
+    %table.table
+      %thead
+        %tr
+          %th.col-md-4 Title
+          %th.col-md-4 Description
+          %th.col-md-2 Created At
+          %th.col-md-2 Action
+      %tbody#unfinished-tasks
 
 .panel.panel-success
   .panel-heading Finished Tasks
@@ -37,16 +46,27 @@
           %th.col-md-4 Description
           %th.col-md-2 Finished At
           %th.col-md-2 Action
-      %tbody
+      %tbody#finished-tasks
         = render partial: 'finished_task', collection: @project.finished_tasks
+  - else
+    %table.table
+      %thead
+        %tr
+          %th.col-md-4 Title
+          %th.col-md-4 Description
+          %th.col-md-2 Finished At
+          %th.col-md-2 Action
+      %tbody#finished-tasks
 
 %h2 Members
 %ul
   - @project.members.each do |member|
     %li= member.login
 
-- if is_the_owner?(@project)
+- if policy(@project).update?
   .btn-group
     = link_to 'Back', projects_path, class: 'btn btn-default'
     = link_to 'Edit Project', edit_project_path, class: 'btn btn-default'
     = link_to 'New Task', new_project_task_path(@project), class: 'btn btn-default'
+- else
+  = link_to 'Back', projects_path, class: 'btn btn-default'
